@@ -1,0 +1,29 @@
+/**自定义样式：覆盖vant原有样式**/
+.custom-style .van-tab--active{
+    color:#3296FA
+}
+.custom-style .van-tabs__line{
+   background: #3296FA;
+}
+.van-icon {
+    font-family: 'vant-icon', 'iconfont' !important;
+  }
+ .van-icon-more:before {
+    content: "\e6ae";
+ }
+ .van-icon-shujuku:before {
+    content: "\e9ee";
+ }
+ .custom-style  .van-cell__title{
+    max-width:90px;
+ }
+ .custom-style .van-cell__value{
+     text-align: left;
+ }
+.custom-van-cell.van-cell{
+    font-size: 17px;
+    padding: 15px 15px;
+}
+.van-picker{
+    font-size:16px;
+}
