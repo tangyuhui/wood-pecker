@@ -67,12 +67,6 @@ export default {
       tabNav: [{ name: '高命中率' }, { name: '响应不及时' }, { name: '执行耗时' }]
     };
   },
-
-  beforeRouteLeave(to, from, next) {
-    this.$refs.listScroll.beforeRouteLeave();
-    next();
-  },
-
   computed: {
   },
 

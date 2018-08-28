@@ -1,7 +1,7 @@
 <template>
   <common-page  title="新建监控">
      <template slot="content">
-         <van-cell-group>
+          <van-cell-group>
              <div class="group-title">基本信息</div>
              <van-field
                     v-model="title"
@@ -125,7 +125,7 @@ export default {
       checked: false,
       title: '',
       dealValue: '',
-      varList: [{ title: 'hello', id: 1 }, { title: 'mobile', id: 2 }],
+      varList: [{ title: 'select * from user', id: 1 }, { title: 'select * from dep', id: 2 }],
       conditionList: [{ title: 'a.total>0', id: 1 }, { title: 'a.total<12', id: 2 }],
       columns: [{ text: 'mysql' },
         { text: 'oracle' },

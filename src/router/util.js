@@ -1,11 +1,13 @@
-import {resetNavBar} from '@/script/util';
+import {resetNavBar,setDingNavTitle} from '@/script/util';
 import { Toast } from 'vant';
 import store from '@/store'
 import { UPDATE_PAGE_LOADING } from '@/store/mutation-types.js';
 export function setRouterEvent(router) {
+
   router.beforeEach((to, from, next) => {
     const title = to.meta && to.meta.title;
     if (title) {
+      setDingNavTitle(title)
       document.title = title;
     }
     next();

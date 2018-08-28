@@ -9,7 +9,7 @@
               <i class="iconfont icon-home" slot="icon"
                    slot-scope="props"></i>
             </van-tabbar-item>
-            <van-tabbar-item>  
+            <van-tabbar-item  to="createMonitor">  
              <span>新建</span>
              <i class="iconfont icon-new" slot="icon"  slot-scope="props" :class="{active:props.active}"></i>
              </van-tabbar-item>
@@ -49,7 +49,13 @@ export default {
 
   },
 
-  watch: {},
+  watch: {
+    $route(to, from) {
+      if (to !== from) {
+        this.initActiveTabbar();
+      }
+    }
+  },
 
   created() {
     this.initActiveTabbar();
@@ -63,11 +69,17 @@ export default {
     initActiveTabbar() {
       const path = this.$route.path;
       switch (path) {
-        case '/frame/my':
-          this.activeTabbar = 3;
-          break;
         case '/frame/home':
           this.activeTabbar = 0;
+          break;
+        case '/frame/createMonitor':
+          this.activeTabbar = 1;
+          break;
+        case '/frame/statisticAnalysis':
+          this.activeTabbar = 2;
+          break;
+        case '/frame/my':
+          this.activeTabbar = 3;
           break;
         default :
           this.activeTabbar = 0;
@@ -80,7 +92,12 @@ export default {
 
 <style scoped>
 .content {
-  padding-bottom: 60px;
+  position: absolute;
+  top:0;
+  bottom:50px;
+  left:0;
+  right:0;
+  overflow: auto;
 }
 </style>
  

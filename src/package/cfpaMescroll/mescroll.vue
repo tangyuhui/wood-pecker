@@ -31,6 +31,9 @@ export default {
     });
     this.$emit('init', this.mescroll); // init回调mescroll对象
   },
+  destroyed() {
+    this.destroy();
+  },
   methods: {
     beforeRouteEnter() {
       if (this.mescroll) {
@@ -51,6 +54,12 @@ export default {
         this.mescroll.hideTopBtn(0); // 隐藏回到顶部按钮,无渐隐动画
         this.lastBounce = this.mescroll.optUp.isBounce; // 记录当前是否禁止ios回弹
         this.mescroll.setBounce(true); // 允许bounce
+      }
+    },
+    destroy() {
+      if (this.mescroll) {
+        this.mescroll.hideTopBtn(0); // 隐藏回到顶部按钮,无渐隐动画
+        this.mescroll.destroy();
       }
     }
   }

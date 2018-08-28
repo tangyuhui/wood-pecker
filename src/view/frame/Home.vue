@@ -82,11 +82,6 @@ export default {
 
   created() {
   },
-
-  beforeRouteLeave(to, from, next) {
-    this.$refs.listScroll.beforeRouteLeave();
-    next();
-  },
   mounted() {
       // 计算滚动区域高度
     this.scrollHeight = this.calScrollHeight();

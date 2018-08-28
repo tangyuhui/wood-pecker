@@ -22,12 +22,12 @@ const MonitorTypeEdit = () => lazyLoadView(import('@/view/my/MonitorTypeEdit.vue
 const Agenda = () => lazyLoadView(import('@/view/my/Agenda.vue'));
 //处理事项
 const DealTodo =  () => lazyLoadView(import('@/view/my/DealTodo.vue'));
-//统计分析
-const StatisticAnalysis = () => lazyLoadView(import('@/view/stat/StatisticAnalysis.vue'));
 //新建监控
-const CreateMonitor = () => lazyLoadView(import('@/view/other/CreateMonitor.vue'));
+const CreateMonitor = () => lazyLoadView(import('@/view/frame/CreateMonitor.vue'));
 //首页(用不一样的加载方式、为的是触发组件路由钩子)
 const Home =  importView('view/frame/Home.vue');
+//统计分析(用不一样的加载方式、为的是触发组件路由钩子)
+const StatisticAnalysis = importView('view/stat/StatisticAnalysis.vue');
 //主体界面
 const Frame = ()  =>lazyLoadView(import('@/view/frame/Frame.vue'));
 const routes = [
@@ -62,6 +62,13 @@ const routes = [
       component: My,
       meta: {
         title: '我的'
+      }
+    },
+    {
+      path: 'createMonitor',
+      component: CreateMonitor,
+      meta: {
+        title: '新建监控'
       }
     }
    ]
@@ -127,14 +134,7 @@ const routes = [
     meta: {
       title: '报警处理'
     }
-  },
-  {
-    path: '/createMonitor',
-    component: CreateMonitor,
-    meta: {
-      title: '新建监控'
-    }
-  }
+  } 
 ];
 
 const router = new Router({  mode: 'history',routes });

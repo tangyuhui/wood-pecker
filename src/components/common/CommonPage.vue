@@ -84,9 +84,6 @@ export default {
 </script>
 
  <style scoped>
- .page{
-   padding-bottom:20px;
- }
  .wrapper-has-navbar{
    /*用Px或者PX代替px,防止被转成rem*/
    padding-top:46Px;
