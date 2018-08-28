@@ -3,4 +3,4 @@
 /src/**/*.js
 /*.js
 /dist/
- 
+/static/

@@ -68,7 +68,7 @@ export default {
 
     },
     handle() {
-      Toast('去处理界面了');
+      this.$router.push('/dealTodo');
     }
   }
 };

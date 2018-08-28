@@ -1,33 +1,25 @@
 <template>
       <common-page  title="数据库管理">
         <template slot="content">
-         <van-swipe-cell :right-width="150" v-for="(item,index) in list" :key="index">
-            <van-cell-group>
-              <van-cell :title="item.name"  class="custom-van-cell">
-                <template slot="title">
+        <CSwipeCell v-for="(item) in list" :key="item.id" :title="item.name" editOne="编辑" editTwo="删除" @select="(option)=>onSelect(option,item)" @handleOneEvent="handleEdit(item)" @handleTwoEvent="handleDelete(item)" >
+             <template slot="title">
                     <img src="./img/database.png" class="database-icon" alt="">
                     <span class="van-cell-text">{{item.name}}</span>
                 </template>
-              </van-cell>
-            </van-cell-group>
-             <template slot="right">
-                 <div class="handle-col">
-                    <span class="cell-swiper-edit" @click.stop="handleEdit">编辑</span>
-                    <span class="cell-swiper-delete" @click.stop="handleDelete">删除</span>
-                 </div>
-             </template>
-          </van-swipe-cell>
+        </CSwipeCell>
         </template>
       </common-page>
 </template>
 <script>
 import { List, Toast, SwipeCell, Cell, CellGroup } from 'vant';
 import CommonPage from '@/components/common/CommonPage.vue';
+import CSwipeCell from '@/components/CSwiperCell';
 export default {
   name: 'dbManage',
   mixins: [],
   components: {
     CommonPage,
+    CSwipeCell,
     [List.name]: List,
     [Toast.name]: Toast,
     [SwipeCell.name]: SwipeCell,
@@ -40,7 +32,7 @@ export default {
 
   data() {
     return {
-      list: [{ name: 'Trade' }, { name: 'Cmis' }, { name: 'XiangXin' }, { name: 'Ycloans' }]
+      list: [{ name: 'Trade', id: '1' }, { name: 'Cmis', id: '2' }, { name: 'XiangXin', id: '3' }, { name: 'Ycloans', id: '4' }]
     };
   },
 
@@ -55,11 +47,18 @@ export default {
   destroyed() {},
 
   methods: {
-    handleEdit() {
+    handleEdit(item) {
       this.$router.push({ path: '/dbEdit', query: { type: 'edit' }});
     },
-    handleDelete() {
+    handleDelete(item) {
       Toast('delete');
+    },
+    onSelect(option, item) {
+      if (option.name === '编辑') {
+        this.handleEdit(item);
+      } else if (option.name === '删除') {
+        this.handleDelete(item);
+      }
     }
   }
 };

@@ -1,30 +1,22 @@
 <template>
       <common-page  title="监控分类管理">
         <template slot="content">
-         <van-swipe-cell :right-width="150" v-for="(item,index) in list" :key="index">
-            <van-cell-group>
-              <van-cell :title="item.name"   class="custom-van-cell">
-              </van-cell>
-            </van-cell-group>
-             <template slot="right">
-                 <div class="handle-col">
-                    <span class="cell-swiper-edit" @click.stop="handleEdit">编辑</span>
-                    <span class="cell-swiper-delete" @click.stop="handleDelete">删除</span>
-                 </div>
-             </template>
-          </van-swipe-cell>
+        <CSwipeCell v-for="(item) in list" :key="item.id" :title="item.name" editOne="编辑" editTwo="删除" @select="(option)=>onSelect(option,item)" @handleOneEvent="handleEdit(item)" @handleTwoEvent="handleDelete(item)" >
+        </CSwipeCell>
         </template>
       </common-page>
 </template>
 <script>
 import { NavBar, Icon, List, Toast, SwipeCell, Cell, CellGroup } from 'vant';
 import CommonPage from '@/components/common/CommonPage.vue';
+import CSwipeCell from '@/components/CSwiperCell';
 import { dingEvent } from '@/script/util';
 export default {
   name: 'monitorType',
   mixins: [],
   components: {
     CommonPage,
+    CSwipeCell,
     [NavBar.name]: NavBar,
     [Icon.name]: Icon,
     [List.name]: List,
@@ -39,7 +31,7 @@ export default {
 
   data() {
     return {
-      list: [{ name: '交易' }, { name: '核算' }, { name: '凭证' }, { name: '短信' }]
+      list: [{ name: '交易', id: 1 }, { name: '核算', id: 2 }, { name: '凭证', id: 3 }, { name: '短信', id: 4 }]
     };
   },
 
@@ -62,10 +54,10 @@ export default {
     add() {
       this.$router.push({ path: '/monitorTypeAdd', query: { type: 'add' }});
     },
-    handleEdit() {
+    handleEdit(item) {
       this.$router.push({ path: '/monitorTypeEdit', query: { type: 'edit' }});
     },
-    handleDelete() {
+    handleDelete(item) {
       Toast('delete');
     },
     setDingNav() {
@@ -85,22 +77,12 @@ export default {
         }
       });
     },
-    resetDingNav() {
-      const self = this;
-      //eslint-disable-next-line
-      dd.biz.navigation.setMenu({
-        backgroundColor: '#eee',
-        textColor: '#eee',
-        items: [
-          {
-            'id': '1', // 字符串
-            'text': '返回首页'
-          }
-        ],
-        onSuccess: function(data) {
-          self.$router.push('/my');
-        }
-      });
+    onSelect(option, item) {
+      if (option.name === '编辑') {
+        this.handleEdit(item);
+      } else if (option.name === '删除') {
+        this.handleDelete(item);
+      }
     }
   }
 };

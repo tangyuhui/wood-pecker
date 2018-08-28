@@ -5,11 +5,11 @@ module.exports = {
       }),
       require('postcss-theme-variables')({
         vars: {
-          red: '#f25643',
-          green:'#15bc83',
+           red: '#f25643',
+           green:'#15bc83',
           'border-color':'#dcdddd',
-          gray: '#CCC',
-          blue: '#3296fa',
+           gray: '#CCC',
+           blue: '#3296fa',
           'button-primary-background-color': '#3296fa',
           'button-primary-border-color': '#3296fa'
         },

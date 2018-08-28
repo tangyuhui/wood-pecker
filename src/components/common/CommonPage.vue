@@ -85,7 +85,7 @@ export default {
 
  <style scoped>
  .page{
-   margin-bottom:20px;
+   padding-bottom:20px;
  }
  .wrapper-has-navbar{
    /*用Px或者PX代替px,防止被转成rem*/

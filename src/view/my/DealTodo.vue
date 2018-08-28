@@ -49,7 +49,8 @@
                     placeholder="简要描述问题根源，处理过程"
               />
          </van-cell-group>
-         <van-button size="normal" class="mt-10 submit-btn">提交</van-button>
+         <van-button size="normal" class="submit-btn">提交</van-button>
+         <div class="drag-ball draggable">已完成</div>
      </template>
   </common-page>
 </template>
@@ -114,10 +115,24 @@ export default {
  <style scoped>
   .submit-btn{
        width:90%;
-       margin:0 auto;
+       margin:20px auto;
        background: #3296fa;
        display: block;
        color:#fff;
-       margin-top:10px;
+  }
+  .drag-ball{
+    position:absolute;
+    top:3%;
+    right:5%;
+    width:60px;
+    height:60px;
+    border-radius: 50%;
+    border:1px solid #6bb2f9;
+    background:#fff;
+    text-align: center;
+    line-height:60px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
+    font-size:14px;
+    color:#5296d2;
   }
 </style>

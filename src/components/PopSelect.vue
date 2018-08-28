@@ -9,7 +9,7 @@
 
 <script>
 import { Cell, Picker, Popup } from 'vant';
-const EVENT_PICKER_CONFIRM = 'confirm';
+import { EVENT_PICKER_CONFIRM } from '@/script/const';
 export default {
   name: '',
 

@@ -27,3 +27,9 @@
 .van-picker{
     font-size:16px;
 }
+.van-ellipsis .van-cell__title{
+    width:100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+ }

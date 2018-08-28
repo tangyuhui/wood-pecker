@@ -6,7 +6,6 @@
                    <van-tabs swipeable>
                          <mescroll ref="listScroll" id="listScroll" :up="up" :down="down" :style="{height:scrollHeight+'px'}">
                             <van-tab v-for="(item,index) in tabNav" :title="item.name" :key="index">
-                            
                                     <div class="item" v-for="(item,index) in list" :key="index">
                                         <div><p class="main-title">{{item.title}}</p><p class="c-999 sub-title">命中数:<span class="ml-5">{{item.mz}}</span><span class="ml-10"></span>关注度:<span class="ml-5">{{item.star}}</span></p></div>
                                         <div class="right-item"><van-button size="small" v-if="item.follow" disabled>已关注</van-button><van-button size="small" v-else type="primary"> 关注</van-button></div>
@@ -26,7 +25,7 @@
 <script>
 import { Tag, Tab, Tabs, List, Toast, Button } from 'vant';
 import CommonPage from '@/components/common/CommonPage.vue';
-import Mescroll from 'mescroll.js/mescroll.vue';
+import Mescroll from '@/package/cfpaMescroll/mescroll.vue';
 // 引入组件对应的样式
 import 'vant/packages/vant-css/src/button.css';
 export default {
@@ -201,9 +200,7 @@ export default {
       justify-content: center;
       align-items: center;
  }
- .mescroll{
-     height:500px;
- }
+
  </style>
 <style lang="scss">
   .van-cell {

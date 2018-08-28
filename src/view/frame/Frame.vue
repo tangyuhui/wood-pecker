@@ -13,7 +13,7 @@
              <span>新建</span>
              <i class="iconfont icon-new" slot="icon"  slot-scope="props" :class="{active:props.active}"></i>
              </van-tabbar-item>
-            <van-tabbar-item icon="records">
+            <van-tabbar-item icon="records" to="statisticAnalysis">
               <span>统计</span>
               <i class="iconfont icon-tongji" slot="icon" slot-scope="props" :class="{active:props.active}"></i>
             </van-tabbar-item>
