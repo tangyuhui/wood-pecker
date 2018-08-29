@@ -30,6 +30,8 @@
 <script>
 import { SwipeCell, Cell, CellGroup, Actionsheet } from 'vant';
 import { EVENT_ACTIONSHEET_SELECT } from '@/script/const';
+import { mapMutations } from 'vuex';
+import { UPDATE_BOTTOM_BAR_SHOW } from '@/store/mutation-types.js';
 export default {
   name: '',
 
@@ -64,12 +66,18 @@ export default {
   },
 
   computed: {
+
     actions() {
       return [{ name: this.editOne }, { name: this.editTwo }];
     }
+
   },
 
-  watch: {},
+  watch: {
+    actionsheetShow(newValue, oldValue) {
+      this.UPDATE_BOTTOM_BAR_SHOW(oldValue);
+    }
+  },
 
   created() {},
 
@@ -78,6 +86,7 @@ export default {
   destroyed() {},
 
   methods: {
+    ...mapMutations([UPDATE_BOTTOM_BAR_SHOW]),
     handleOneEvent() {
       this.$emit('handleOneEvent');
     },

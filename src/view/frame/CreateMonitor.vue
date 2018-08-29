@@ -31,13 +31,13 @@
          </van-cell-group>
          <van-cell-group>
              <div class="group-title">变量设置</div>
-             <CSwipeCell v-for="(item) in varList" :key="item.id" :title="item.title" editOne="编辑" editTwo="删除" @select="(option)=>onVarMulSelect(option,item)" @handleOneEvent="handleVarEdit(item)" @handleTwoEvent="handleVarDelete(item)">
+             <CSwipeCell v-for="(item) in varList"   :key="item.id" :title="item.title" editOne="编辑" editTwo="删除" @select="(option)=>onVarMulSelect(option,item)" @handleOneEvent="handleVarEdit(item)" @handleTwoEvent="handleVarDelete(item)">
              </CSwipeCell>
              <div class="mul-area"><div class="add-btn" @click="addVariable">+</div></div>
          </van-cell-group>
          <van-cell-group>
              <div class="group-title">触发条件</div>
-             <CSwipeCell v-for="(item) in conditionList" :key="item.id" :title="item.title" editOne="编辑" editTwo="删除" @select="(option)=>onConditionMulSelect(option,item)" @handleOneEvent="handleConditionEdit(item)" @handleTwoEvent="handleConditionDelete(item)">
+             <CSwipeCell  v-for="(item) in conditionList" :key="item.id" :title="item.title" editOne="编辑" editTwo="删除" @select="(option)=>onConditionMulSelect(option,item)" @handleOneEvent="handleConditionEdit(item)" @handleTwoEvent="handleConditionDelete(item)">
              </CSwipeCell>
              <div class="mul-area"><div class="add-btn" @click="addCondition">+</div></div>
          </van-cell-group>
@@ -102,6 +102,8 @@ import CSwipeCell from '@/components/CSwiperCell';
 import CommonPage from '@/components/common/CommonPage.vue';
 import LogCell from '@/components/LogCell.vue';
 import PopSelect from '@/components/PopSelect.vue';
+import { mapMutations } from 'vuex';
+import { UPDATE_BOTTOM_BAR_SHOW } from '@/store/mutation-types.js';
 export default {
   name: 'createMonitor',
 
@@ -152,6 +154,7 @@ export default {
   destroyed() {},
 
   methods: {
+    ...mapMutations([UPDATE_BOTTOM_BAR_SHOW]),
     pickerConfirm(value) {
       this.dealValue = value.text;
     },
@@ -245,13 +248,13 @@ export default {
   padding:10px 12px;
 }
  .submit-btn{
-       width:90%;
-       margin:20px auto;
-       background: #3296fa;
-       display: block;
-       color:#fff;
-  }
-  .drag-ball{
+  width:90%;
+  margin:20px auto;
+  background: #3296fa;
+  display: block;
+  color:#fff;
+ }
+ .drag-ball{
     position:absolute;
     top:3%;
     right:5%;
@@ -271,7 +274,7 @@ export default {
     height:30px;
     display:block;
     text-align: center;
-    line-height:30px;
+    line-height:28px;
     border:1px solid #999;
     color:#999;
     border-radius: 50%;

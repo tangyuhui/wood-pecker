@@ -1,9 +1,10 @@
 <template>
      <div>
        <div class="content">
-         <router-view></router-view>
+         <router-view  style="postion:relative;z-index:99999!important;"></router-view>
        </div>
-        <van-tabbar  v-model="activeTabbar">
+       <div v-if="bottomBarShow">
+            <van-tabbar  v-model="activeTabbar" class="tabbar">
             <van-tabbar-item  to="home"> 
               <span>首页</span>
               <i class="iconfont icon-home" slot="icon"
@@ -17,16 +18,18 @@
               <span>统计</span>
               <i class="iconfont icon-tongji" slot="icon" slot-scope="props" :class="{active:props.active}"></i>
             </van-tabbar-item>
-             <van-tabbar-item  info="20" to="my">
+            <van-tabbar-item  info="20" to="my">
                <span>我的</span>
               <i class="iconfont icon-person" slot="icon"  slot-scope="props" :class="{active:props.active}"></i>
-              </van-tabbar-item>
+            </van-tabbar-item>
         </van-tabbar>
-     </div>
+       </div>
+    </div>
 </template>
 
 <script>
 import { Tabbar, TabbarItem } from 'vant';
+import { mapState } from 'vuex';
 export default {
   name: '',
 
@@ -46,7 +49,7 @@ export default {
   },
 
   computed: {
-
+    ...mapState(['bottomBarShow'])
   },
 
   watch: {
@@ -94,10 +97,11 @@ export default {
 .content {
   position: absolute;
   top:0;
-  bottom:50px;
+  bottom:0px;
   left:0;
   right:0;
   overflow: auto;
+  padding-bottom:50px;
 }
 </style>
  

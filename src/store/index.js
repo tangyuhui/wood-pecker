@@ -8,7 +8,8 @@ import vuexAlong from 'vuex-along';
 Vue.use(Vuex);
 
 const state = {
-  pageLoading: false
+  pageLoading: false,
+  bottomBarShow:true
 };
 
 vuexAlong.onlySession(true);

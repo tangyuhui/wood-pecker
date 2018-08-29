@@ -72,7 +72,7 @@ export default {
           tip: '--暂无数据--'
         }
       },
-      down: { },
+      down: {},
       tabNav: [{ name: '全部' }, { name: '交易' }, { name: '核算' }, { name: '凭证' }, { name: 'Capp' }]
     };
   },
