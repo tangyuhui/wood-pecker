@@ -51,6 +51,7 @@ export default {
     return {
       tabActive: '0',
       scrollHeight: 500,
+      actionsheetShow: false,
       up: {
         htmlNodata: '<p class="upwarp-nodata">--END--</p>',
         callback: this.upCallback, // 上拉回调
