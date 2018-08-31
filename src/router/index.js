@@ -28,6 +28,8 @@ const CreateMonitor = () => lazyLoadView(import('@/view/frame/CreateMonitor.vue'
 const Home =  importView('view/frame/Home.vue');
 //统计分析(用不一样的加载方式、为的是触发组件路由钩子)
 const StatisticAnalysis = importView('view/stat/StatisticAnalysis.vue');
+//过滤界面
+const FilterType = () => lazyLoadView(import('@/view/other/FilterType.vue'));
 //主体界面
 const Frame = ()  =>lazyLoadView(import('@/view/frame/Frame.vue'));
 const routes = [
@@ -133,6 +135,12 @@ const routes = [
     component: DealTodo,
     meta: {
       title: '报警处理'
+    }
+  },{
+    path:'/filterType',
+    component: FilterType,
+    meta: {
+      title: '过滤类型'
     }
   } 
 ];

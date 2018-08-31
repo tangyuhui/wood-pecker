@@ -50,7 +50,7 @@
               />
          </van-cell-group>
          <van-button size="normal" class="submit-btn">提交</van-button>
-         <div class="drag-ball draggable">已完成</div>
+         <div class="drag-ball" v-drag>已完成</div>
      </template>
   </common-page>
 </template>
