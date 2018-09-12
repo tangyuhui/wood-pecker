@@ -87,7 +87,7 @@ export default {
     this.scrollHeight = this.calScrollHeight();
   },
 
-  destroyed() {},
+  destroyed() { },
 
   methods: {
     upCallback(page) {

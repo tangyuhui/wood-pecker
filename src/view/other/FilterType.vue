@@ -11,8 +11,8 @@
                 </section>
                  <footer>
                     <div class="button-group">
-                        <button>取消</button>
-                        <button class="primary">确认</button>
+                        <button @click="cancel">取消</button>
+                        <button class="primary"  @click="confirm">确认</button>
                      </div>
                  </footer>
           </template>
@@ -49,7 +49,14 @@ export default {
 
   destroyed() {},
 
-  methods: {}
+  methods: {
+    cancel() {
+      this.$router.go(-1);
+    },
+    confirm() {
+      this.$router.go(-1);
+    }
+  }
 };
 </script>
 

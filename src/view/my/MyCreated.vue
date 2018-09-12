@@ -29,6 +29,7 @@
 import { Tab, Tabs, List, Panel, Actionsheet, Toast } from 'vant';
 import CommonPage from '@/components/common/CommonPage.vue';
 import Mescroll from '@/package/cfpaMescroll/mescroll.vue';
+import { dingEvent, resetNavBar } from '@/script/util';
 export default {
   name: 'myCreated',
   mixins: [],
@@ -100,9 +101,10 @@ export default {
   mounted() {
          // 计算滚动区域高度
     this.scrollHeight = this.calScrollHeight();
+    dingEvent(this.setDingNav, this);
   },
 
-  destroyed() {},
+  destroyed() { resetNavBar(); },
 
   methods: {
     upCallback(page) {
@@ -142,6 +144,26 @@ export default {
 // 点击选项时默认不会关闭菜单，可以手动关闭
       this.actionsheetShow = false;
       Toast(item.name);
+    },
+    setDingNav() {
+      const self = this;
+      //eslint-disable-next-line
+      dd.biz.navigation.setMenu({
+        backgroundColor: '#eee',
+        textColor: '#eee',
+        items: [
+          {
+            'id': '1', // 字符串
+            'text': '添加'
+          }
+        ],
+        onSuccess: function(data) {
+          self.add();
+        }
+      });
+    },
+    add() {
+      this.$router.push('/frame/createMonitor');
     },
     handle() {
       this.actionsheetShow = true;

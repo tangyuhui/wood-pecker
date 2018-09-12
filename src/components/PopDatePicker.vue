@@ -2,14 +2,18 @@
      <div>
           <van-cell  :title="cellTitle" class="custom-style custom-van-cell"   :value="cellValue" is-link  @click="showPicker"/>
            <van-popup :lazy-render="false" v-model="showPop" position="bottom">
-                <van-picker show-toolbar ref="picker" :columns="columns" :value-key="valueKey"   @confirm="pickerConfirm" @cancel="pickerCancel" />
+             <van-datetime-picker
+                  v-model="chooseDate"
+                  type="date"
+                  @cancel="cancel"
+                  @confirm="confirm"
+             />
           </van-popup>
      </div>
 </template>
 
 <script>
-import { Cell, Picker, Popup } from 'vant';
-import { EVENT_PICKER_CONFIRM } from '@/script/const';
+import { Cell, Picker, Popup, DatetimePicker } from 'vant';
 export default {
   name: '',
 
@@ -18,7 +22,8 @@ export default {
   components: {
     [Cell.name]: Cell,
     [Picker.name]: Picker,
-    [Popup.name]: Popup
+    [Popup.name]: Popup,
+    [DatetimePicker.name]: DatetimePicker
   },
   props: {
     cellTitle: {
@@ -29,18 +34,6 @@ export default {
     value: {
       type: [String, Number],
       default: ''
-    },
-    valueKey: {
-      type: String,
-      default: 'text'
-    },
-    valueCode: {
-      type: String,
-      default: 'code'
-    },
-    columns: {
-      type: Array,
-      default: ''
     }
   },
 
@@ -48,7 +41,8 @@ export default {
     return {
       showPop: false,
       cellValue: this.value,
-      chooseItem: null
+      chooseItem: null,
+      chooseDate: ''
     };
   },
 
@@ -56,14 +50,13 @@ export default {
 
   watch: {
     value(val) {
-      if (!this.chooseItem || (this.chooseItem[this.valueCode] !== val)) {
-        this.setDefaultValue(val);
+      /** 如果不等于则触发赋值 */
+      if (val !== this.cellValue) {
+        this.cellValue = val;
       }
     },
     cellValue(newVal) {
-      if (this.chooseItem && newVal === this.chooseItem[this.valueKey]) {
-        this.$emit('input', this.chooseItem[this.valueCode]);
-      }
+      this.$emit('input', newVal);
     }
   },
   created() {
@@ -77,47 +70,12 @@ export default {
     showPicker() {
       this.showPop = true;
     },
-    pickerConfirm(item, index) {
+    confirm(value) {
       this.showPop = false;
-      if (Array.isArray(item)) {
-        return;
-      }
-      this.chooseItem = item;
-      this.cellValue = this.chooseItem[this.valueKey];
-      this.$emit(EVENT_PICKER_CONFIRM, this.chooseItem);
+      this.cellValue = this.$moment(value).format('YYYY-MM-DD');
     },
-    pickerCancel() {
+    cancel() {
       this.showPop = false;
-    },
-    getPicker() {
-      return this.$refs.picker;
-    },
-    setDefaultValue(code) {
-      /** 找到了该值 */
-      const item = this.getValueByItem(code);
-      if (item) {
-        this.$refs.picker.setValues([item[this.valueKey]]);
-        this.chooseItem = item;
-        this.cellValue = item[this.valueKey];
-      } else {
-        this.$refs.picker.setIndexes([0]);
-        this.chooseItem = null;
-        this.cellValue = '';
-      }
-    },
-    getValueByItem(code) {
-      if (Array.isArray(this.columns)) {
-        const item = this.columns.find((item) => {
-          return item[this.valueCode] === code;
-        });
-        if (item != null) {
-          return item;
-        } else {
-          return '';
-        }
-      } else {
-        return '';
-      }
     }
   }
 };

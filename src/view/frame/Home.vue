@@ -3,21 +3,22 @@
         <template slot="content">
             <div>
                 <div class="tab eight-cents">
-                   <van-tabs swipeable>
-                         <mescroll ref="listScroll" id="listScroll" :up="up" :down="down" :style="{height:scrollHeight+'px'}">
+                   <van-tabs swipeable class="mescroll-touch-x">
+                        <mescroll ref="listScroll" id="listScroll" :up="up" :down="down" :style="{height:scrollHeight+'px'}"> 
                             <van-tab v-for="(item,index) in tabNav" :title="item.name" :key="index">
                                     <div class="item" v-for="(item,index) in list" :key="index">
                                         <div><p class="main-title">{{item.title}}</p><p class="c-999 sub-title">命中数:<span class="ml-5">{{item.mz}}</span><span class="ml-10"></span>关注度:<span class="ml-5">{{item.star}}</span></p></div>
                                         <div class="right-item"><van-button size="small" v-if="item.follow" disabled>已关注</van-button><van-button size="small" v-else type="primary"> 关注</van-button></div>
                                     </div>
                             </van-tab>
-                       </mescroll>
+                        </mescroll>  
                     </van-tabs>
                 </div>
-                <div class="operate van-hairline">
+                <div class="operate van-hairline" @click="goFilter">
                     <i class="iconfont icon-filter"></i>
                      <span>筛选</span>
                 </div>
+                
             </div>
         </template>
       </common-page>
@@ -120,6 +121,9 @@ export default {
       // 44为顶部高度，50为底部高度
       const restHeight = bodyHeight - 50 - 44;
       return restHeight - 10;
+    },
+    goFilter() {
+      this.$router.push('/FilterType');
     }
   }
 };

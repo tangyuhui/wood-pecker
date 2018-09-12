@@ -84,6 +84,10 @@ export default {
 </script>
 
  <style scoped>
+ .page{
+   -webkit-overflow-scrolling:touch;
+     overflow-scrolling: touch;
+ }
  .wrapper-has-navbar{
    /*用Px或者PX代替px,防止被转成rem*/
    padding-top:46Px;

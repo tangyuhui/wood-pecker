@@ -32,6 +32,10 @@ const StatisticAnalysis = importView('view/stat/StatisticAnalysis.vue');
 const FilterType = () => lazyLoadView(import('@/view/other/FilterType.vue'));
 //主体界面
 const Frame = ()  =>lazyLoadView(import('@/view/frame/Frame.vue'));
+//系统异常界面(404)
+const NotFound =  ()  =>lazyLoadView(import('@/view/system/NotFound.vue'));
+//系统异常界面(500)
+const ServerError =  ()  =>lazyLoadView(import('@/view/system/ServerError.vue'));
 const routes = [
   {
     path: '/',
@@ -72,6 +76,13 @@ const routes = [
       meta: {
         title: '新建监控'
       }
+    },
+    {
+      path: 'editMonitor',
+      component: CreateMonitor,
+      meta: {
+        title: '编辑监控'
+      }
     }
    ]
   },{
@@ -86,19 +97,22 @@ const routes = [
     meta: {
       title: '我关注的'
     }
-  }, {
+  }, 
+  {
     path: '/dbManage',
     component: DbManage,
     meta: {
       title: '数据库管理'
     }
-  }, {
+  }, 
+  {
     path: '/dbEdit',
     component: DbEdit,
     meta: {
       title: '数据库编辑'
     }
-  }, {
+  }, 
+  {
     path: '/dbAdd',
     component: DbEdit,
     meta: {
@@ -142,7 +156,24 @@ const routes = [
     meta: {
       title: '过滤类型'
     }
-  } 
+  },{
+    path:'*',
+    redirect:'/404'
+  },
+  {
+    path:'/404',
+    component:NotFound,
+    meta:{
+      title: '错误页'
+    }
+  },
+  {
+    path:'/500',
+    component:ServerError,
+    meta:{
+      title: '错误页'
+    }
+  }
 ];
 
 const router = new Router({  mode: 'history',routes });

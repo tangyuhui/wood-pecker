@@ -7,13 +7,18 @@
                     <span class="van-cell-text">{{item.name}}</span>
                 </template>
         </CSwipeCell>
+        <div class="drag-ball"  v-drag   @click="add">添加</div>
         </template>
       </common-page>
 </template>
 <script>
-import { List, Toast, SwipeCell, Cell, CellGroup } from 'vant';
+import { List, SwipeCell, Cell, CellGroup } from 'vant';
 import CommonPage from '@/components/common/CommonPage.vue';
 import CSwipeCell from '@/components/CSwiperCell';
+import api from '@/api';
+import * as util from '@/script/util';
+import { mapState, mapMutations } from 'vuex';
+import { UPDATE_DRAG_STATUS } from '@/store/mutation-types.js';
 export default {
   name: 'dbManage',
   mixins: [],
@@ -21,7 +26,6 @@ export default {
     CommonPage,
     CSwipeCell,
     [List.name]: List,
-    [Toast.name]: Toast,
     [SwipeCell.name]: SwipeCell,
     [Cell.name]: Cell,
     [CellGroup.name]: CellGroup
@@ -36,22 +40,72 @@ export default {
     };
   },
 
-  computed: {},
+  computed: {
+    ...mapState(['isDraging'])
+  },
 
   watch: {},
 
   created() {},
 
-  mounted() {},
+  mounted() {
+    this.getList();
+    util.dingEvent(this.setDingNav, this);
+  },
 
-  destroyed() {},
+  destroyed() {
+    util.resetNavBar();
+  },
 
   methods: {
+    ...mapMutations([UPDATE_DRAG_STATUS]),
+    getList() {
+      api.getDbConnect().then(util.filterBackendData).then(res => {
+        this.list = res;
+      }).catch(err => {
+        this.$toast(err);
+      });
+    },
     handleEdit(item) {
-      this.$router.push({ path: '/dbEdit', query: { type: 'edit' }});
+      this.$router.push({ path: '/dbEdit', query: { id: item.id }});
     },
     handleDelete(item) {
-      Toast('delete');
+      this.$dialog.confirm({
+        title: '是否确认删除该数据库?'
+      }).then(() => {
+        return api.deleteDbConnect(item.id).then(util.filterBackendData).then(res => {
+          this.$toast.success('删除成功');
+        }).catch(err => {
+          this.$toast(err);
+        });
+      }).catch((err) => {
+        console.log(err);
+        this.$toast('取消删除');
+      });
+    },
+    setDingNav() {
+      const self = this;
+      //eslint-disable-next-line
+      dd.biz.navigation.setMenu({
+        backgroundColor: '#eee',
+        textColor: '#eee',
+        items: [
+          {
+            'id': '1', // 字符串
+            'text': '添加'
+          }
+        ],
+        onSuccess: function(data) {
+          self.add();
+        }
+      });
+    },
+    add() {
+      if (this.isDraging) {
+        this.UPDATE_DRAG_STATUS(false);
+      } else {
+        this.$router.push({ path: '/dbAdd' });
+      }
     },
     onSelect(option, item) {
       if (option.name === '编辑') {

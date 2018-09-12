@@ -1,7 +1,7 @@
 <template>
      <div>
        <div class="content">
-         <router-view  style="postion:relative;z-index:99999!important;"></router-view>
+         <router-view></router-view>
        </div>
        <div v-if="bottomBarShow">
             <van-tabbar  v-model="activeTabbar" class="tabbar">
@@ -76,6 +76,7 @@ export default {
           this.activeTabbar = 0;
           break;
         case '/frame/createMonitor':
+        case '/frame/editMonitor':
           this.activeTabbar = 1;
           break;
         case '/frame/statisticAnalysis':

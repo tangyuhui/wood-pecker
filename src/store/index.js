@@ -9,9 +9,10 @@ Vue.use(Vuex);
 
 const state = {
   pageLoading: false,
-  bottomBarShow:true
+  bottomBarShow:true,
+  isDraging:false
 };
-
+vuexAlong.watchSession(['bottomBarShow'], false)
 vuexAlong.onlySession(true);
 export default new Vuex.Store({
   state,

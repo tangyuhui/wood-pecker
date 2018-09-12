@@ -3,7 +3,6 @@ import { Toast } from 'vant';
 import store from '@/store'
 import { UPDATE_PAGE_LOADING } from '@/store/mutation-types.js';
 export function setRouterEvent(router) {
-
   router.beforeEach((to, from, next) => {
     const title = to.meta && to.meta.title;
     if (title) {
@@ -13,9 +12,6 @@ export function setRouterEvent(router) {
     next();
   });
   router.afterEach((to, from) => {
-    if (from.path === '/monitorType') {
-        resetNavBar();
-    }
   });
 }
 export function lazyLoadView(AsyncView) {

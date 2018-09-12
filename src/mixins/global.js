@@ -1,4 +1,4 @@
-import {dingEvent} from '@/script/util'
+import {dingEvent,isPC} from '@/script/util'
 
 export default {
   data () {
@@ -16,7 +16,6 @@ export default {
           showIcon: false
         })
       })
-   
     },
     $loadingHide () {
       let self = this;
@@ -24,6 +23,19 @@ export default {
         self.$dd.device.notification.hidePreloader()
       })
     },
+    $showError(text){
+      let self = this;
+      dingEvent(function(){
+        alert(1)
+        self.$dd.device.notification.toast({
+          icon: 'error', //icon样式，有success和error，默认为空
+          text: text //提示信息
+      })
+      })
+    },
+    $isPC(){
+        return isPC()
+    }
     
   } 
 }

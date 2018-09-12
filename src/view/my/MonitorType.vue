@@ -1,8 +1,13 @@
 <template>
       <common-page  title="监控分类管理">
         <template slot="content">
-        <CSwipeCell v-for="(item) in list" :key="item.id" :title="item.name" editOne="编辑" editTwo="删除" @select="(option)=>onSelect(option,item)" @handleOneEvent="handleEdit(item)" @handleTwoEvent="handleDelete(item)" >
+        <CSwipeCell v-for="(item) in list" :key="item.id" :title="item.title" editOne="编辑" editTwo="删除" @select="(option)=>onSelect(option,item)" @handleOneEvent="handleEdit(item)" @handleTwoEvent="handleDelete(item)" >
         </CSwipeCell>
+          <div class="drag-ball" v-drag   @click.stop.prevent="add">添加</div>
+          <div v-if="list.length===0" class="no-data">
+            <div><img :src="noDataImg" alt=""></div>
+            <h2> 暂无监控分类，赶紧添加吧！</h2>         
+         </div>
         </template>
       </common-page>
 </template>
@@ -10,7 +15,12 @@
 import { NavBar, Icon, List, Toast, SwipeCell, Cell, CellGroup } from 'vant';
 import CommonPage from '@/components/common/CommonPage.vue';
 import CSwipeCell from '@/components/CSwiperCell';
-import { dingEvent } from '@/script/util';
+import noDataImg from '@/assets/img/exception/empty.png';
+import api from '@/api';
+import * as util from '@/script/util';
+import { mapState, mapMutations } from 'vuex';
+import { UPDATE_DRAG_STATUS } from '@/store/mutation-types.js';
+
 export default {
   name: 'monitorType',
   mixins: [],
@@ -31,34 +41,57 @@ export default {
 
   data() {
     return {
-      list: [{ name: '交易', id: 1 }, { name: '核算', id: 2 }, { name: '凭证', id: 3 }, { name: '短信', id: 4 }]
+      list: [],
+      noDataImg: noDataImg
     };
   },
 
-  computed: {},
+  computed: {
+    ...mapState(['isDraging'])
+  },
 
   watch: {},
 
   created() {},
 
   mounted() {
-    dingEvent(this.setDingNav, this);
+    this.getMonitorCategory();
+    util.dingEvent(this.setDingNav, this);
   },
 
-  destroyed() {},
+  destroyed() {
+    util.resetNavBar();
+  },
 
   methods: {
+    ...mapMutations([UPDATE_DRAG_STATUS]),
     goPrev() {
       this.$router.back();
     },
     add() {
-      this.$router.push({ path: '/monitorTypeAdd', query: { type: 'add' }});
+      if (this.isDraging) {
+        this.UPDATE_DRAG_STATUS(false);
+      } else {
+        this.$router.push({ path: '/monitorTypeAdd' });
+      }
     },
     handleEdit(item) {
-      this.$router.push({ path: '/monitorTypeEdit', query: { type: 'edit' }});
+      this.$router.push({ path: '/monitorTypeEdit', query: { id: item.id }});
     },
     handleDelete(item) {
-      Toast('delete');
+      this.$dialog.confirm({
+        title: '是否确认删除该监控分类?'
+      }).then(() => {
+        return api.deleteMonitorCategory(item.id).then(util.filterBackendData).then(res => {
+          this.$toast.success('删除成功');
+          this.getMonitorCategory();
+        }).catch(err => {
+          this.$toast(err);
+        });
+      }).catch((err) => {
+        console.log(err);
+        this.$toast('取消删除');
+      });
     },
     setDingNav() {
       const self = this;
@@ -75,6 +108,13 @@ export default {
         onSuccess: function(data) {
           self.add();
         }
+      });
+    },
+    getMonitorCategory() {
+      api.getMonitorCategory().then(util.filterBackendData).then(res => {
+        this.list = res;
+      }).catch(err => {
+        this.$toast(err);
       });
     },
     onSelect(option, item) {

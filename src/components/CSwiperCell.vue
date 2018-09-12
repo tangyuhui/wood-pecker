@@ -6,6 +6,9 @@
               <template slot="title">
                 <slot name="title">{{title}}</slot>
               </template>
+              <template slot="right-icon" v-if="$isPC">
+                    <i class="iconfont icon-more"></i> 
+              </template>
             </van-cell>
           </van-cell-group>
             <template slot="right">
@@ -124,5 +127,9 @@ export default {
  }
   .cell-swiper-delete{
     background: red;
+ }
+  .icon-more{
+    color:#666;
+    border:#eee;
  }
 </style>

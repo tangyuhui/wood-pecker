@@ -94,7 +94,7 @@ export default {
 
   mounted() {},
 
-  destroyed() {},
+  destroyed() { },
 
   methods: {
     pickerConfirm(value) {
